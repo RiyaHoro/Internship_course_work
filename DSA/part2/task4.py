@@ -20,7 +20,7 @@ class Node:
         curr = self
         while curr is not None:
             nxt = curr.next
-            curr.next = prev 
+            curr.next = prev
             prev = curr
             curr = nxt
         return prev
