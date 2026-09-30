@@ -26,6 +26,9 @@ class Node:
         return prev
             
 if __name__ == "__main__":
+    a = int(input)
+    
+    
     
     
     
