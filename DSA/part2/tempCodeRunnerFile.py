@@ -1,9 +1,16 @@
-    head = Node(11)
-    head.next = Node(11)
-    head.next.next = Node(11)
-    head.next.next.next = Node(13)
-    head.next.next.next.next = Node(13)
-    head.next.next.next.next.next= Node(20)
-    head.display()
-    head.removeDuplicates()
-    head.display()
+def add(self):
+    #     curr = self
+    #     head = curr
+    #     curr.value = curr.value+1
+    #     if curr.value>9:
+    #         carry = curr.value // 10
+    #         curr.value = curr.value % 10
+    #     curr = curr.next
+    #     while curr is not None:
+            
+    #         curr.value = curr.value+carry
+    #         if curr.value>9:
+    #             carry = curr.value // 10
+    #             curr.value = curr.value % 10
+    #         curr = curr.next
+    #     return head
