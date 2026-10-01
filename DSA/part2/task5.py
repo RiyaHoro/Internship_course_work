@@ -1,93 +1,71 @@
 class Node:
-    def __init__(self,value):
+    def __init__(self, value):
         self.value = value
         self.next = None
-    def createLinkedList(self):
-        head = Node(self[0])
+
+    @classmethod
+    def create_linked_list(cls, values):
+        if not values:
+            return None
+        head = cls(values[0])
         curr = head
-        for val in self[1:]:
-            curr.next = Node(val)
+        for val in values[1:]:
+            curr.next = cls(val)
             curr = curr.next
         return head
+
     def display(self):
         curr = self
-        while curr is not None:
-            print(curr.value,end="")
+        res = []
+        while curr:
+            res.append(str(curr.value))
             curr = curr.next
-        print("\n")
-    def reverseL(self):
-        prev = None
-        curr = self
-        while curr is not None:
-            nxt = curr.next
-            curr.next = prev
-            prev = curr
-            curr = nxt
-        return prev
-    def add(self):
-        curr = self
-        head = curr
-        curr.value = curr.value+1
-        carry = 0
-        if curr.value>9:
-            carry = curr.value // 10
-            curr.value = curr.value % 10
-            curr = curr.next
-        while curr is not None and carry >=1 :
-            
-            curr.value = curr.value+carry
-            if curr.value>9:
-                carry = curr.value // 10
-                curr.value = curr.value % 10
-            curr = curr.next
-        return head
-                
-                
-            
+        print("".join(res))
+
+
+def add_one_single_pass(head):
+    if not head:
+        return Node(1)
+
+    # Dummy head to handle overflow cases like 999 -> 1000 seamlessly
+    dummy = Node(0)
+    dummy.next = head
+
+    # Find the rightmost node that isn't 9
+    last_not_nine = dummy
+    curr = head
+
+    while curr:
+        if curr.value != 9:
+            last_not_nine = curr
+        curr = curr.next
+
+    # Increment the last non-9 digit
+    last_not_nine.value += 1
+
+    # Change all trailing 9s to 0s
+    curr = last_not_nine.next
+    while curr:
+        curr.value = 0
+        curr = curr.next
+
+    # If dummy value changed to 1 (e.g. 999 -> 1000), dummy is the new head
+    return dummy if dummy.value == 1 else dummy.next
+
+
 if __name__ == "__main__":
-    a = 1999
-    listA = []
-    while a > 0:
-        num = a % 10
-        listA.append(num)
-        a = a//10
-    listA.reverse()
-    #print(listA)       
-    head = Node.createLinkedList(listA)
+    test_cases = [1999, 3453, 9999]
 
-    head.display()
-    #reverse the linked list first
-    NewHead = head.reverseL()
-   
-    #Adding 1
-    Add1 = NewHead.add()
-    
-    #Reversee the new linked list
-    reverseAdd1 = Add1.reverseL()
-    reverseAdd1.display()
-    #test case 2
-    a = 3453
-    listA = []
-    while a > 0:
-        num = a % 10
-        listA.append(num)
-        a = a//10
-    listA.reverse()
-    #print(listA)       
-    head = Node.createLinkedList(listA)
+    for num in test_cases:
+        # Convert integer directly to linked list using map/str
+        digits = [int(d) for d in str(num)]
+        head = Node.create_linked_list(digits)
 
-    head.display()
-    #reverse the linked list first
-    NewHead = head.reverseL()
-   
-    #Adding 1
-    Add1 = NewHead.add()
-    
-    #Reversee the new linked list
-    reverseAdd1 = Add1.reverseL()
-    reverseAdd1.display()
-   
-    
-    
-    
-    
+        print(f"Original: ", end="")
+        head.display()
+
+        head = add_one_single_pass(head)
+
+        print(f"After +1:  ", end="")
+        head.display()
+        print("-" * 20)

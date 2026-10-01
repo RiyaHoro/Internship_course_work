@@ -1,16 +1,9 @@
-def add(self):
-    #     curr = self
-    #     head = curr
-    #     curr.value = curr.value+1
-    #     if curr.value>9:
-    #         carry = curr.value // 10
-    #         curr.value = curr.value % 10
-    #     curr = curr.next
-    #     while curr is not None:
-            
-    #         curr.value = curr.value+carry
-    #         if curr.value>9:
-    #             carry = curr.value // 10
-    #             curr.value = curr.value % 10
-    #         curr = curr.next
-    #     return head
+    # --- Test Case 1 ---
+    head1 = Node(2)
+    head1.next = Node(3)
+    head1.next.next = Node(4)
+    head1.next.next.next = Node(5)
+
+    head1.display()
+    print("The middle element is", head1.get_middle())
+    print()

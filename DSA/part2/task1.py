@@ -30,16 +30,16 @@ class Node:
             fast = fast.next.next
         return slow.value
 
+if __name__ == "__main__":
+    # --- Test Case 1 ---
+    head1 = Node(2)
+    head1.next = Node(3)
+    head1.next.next = Node(4)
+    head1.next.next.next = Node(5)
 
-# --- Test Case 1 ---
-head1 = Node(2)
-head1.next = Node(3)
-head1.next.next = Node(4)
-head1.next.next.next = Node(5)
-
-head1.display()
-print("The middle element is", head1.get_middle())
-print()
+    head1.display()
+    print("The middle element is", head1.get_middle())
+    print()
 
 # --- Test Case 2 ---
 head2 = Node(1)

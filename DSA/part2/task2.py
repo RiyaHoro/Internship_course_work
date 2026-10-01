@@ -24,25 +24,25 @@ class node:
             fast = fast.next.next
         prev.next = slow.next
         return self
-    
-#test case 1
-head = node(1)
-head.next = node(2)
-head.next.next = node(3)
-head.next.next.next = node(4)
-head.next.next.next.next = node(5)
+if __name__=="__main__":   
+    #test case 1
+    head = node(1)
+    head.next = node(2)
+    head.next.next = node(3)
+    head.next.next.next = node(4)
+    head.next.next.next.next = node(5)
 
-head.display()
-DeleteMid = node.deleteMid(head)
-DeleteMid.displayNew()
-#test case 2
-head2 = node(2)
-head2.next = node(4)
-head2.next.next = node(6)
-head2.next.next.next = node(7)
-head2.next.next.next.next = node(5)
-head2.next.next.next.next.next = node(1)
+    head.display()
+    DeleteMid = node.deleteMid(head)
+    DeleteMid.displayNew()
+    #test case 2
+    head2 = node(2)
+    head2.next = node(4)
+    head2.next.next = node(6)
+    head2.next.next.next = node(7)
+    head2.next.next.next.next = node(5)
+    head2.next.next.next.next.next = node(1)
 
-head2.display()
-newList = node.deleteMid(head2)
-newList.displayNew()
+    head2.display()
+    newList = node.deleteMid(head2)
+    newList.displayNew()
