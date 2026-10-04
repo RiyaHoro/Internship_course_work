@@ -203,6 +203,70 @@ print("""The t-tests found statistically significant differences in views betwee
       In each case, the high-engagement group had higher average views than the low-engagement group. 
       These results indicate an association between engagement metrics and views, but do not establish causation.""")
 
+# %% [markdown]
+# # Preprocess Features
+# 
+
+# %%
+from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
+# Numerical features
+numeric_features = [
+    "likes",
+    "dislikes",
+    "comment_count",
+    "title_length",
+    "days_since_publish"
+]
+
+# Categorical features
+categorical_features = [
+    "channel_title",
+    "category_id"
+]
+
+# All input features
+features = numeric_features + categorical_features
+
+# Input data
+X = df[features]
+
+# Targets
+y_reg = df["views"]
+y_cls = df["viral"]
+
+# Split into training and testing data
+X_train, X_test, y_reg_train, y_reg_test, y_cls_train, y_cls_test = train_test_split(
+    X,
+    y_reg,
+    y_cls,
+    test_size=0.2,
+    random_state=42,
+    stratify=y_cls
+)
+
+# Preprocessing
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("num", StandardScaler(), numeric_features),
+        ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_features)
+    ]
+)
+
+# Fit on training data and transform it
+X_train_processed = preprocessor.fit_transform(X_train)
+
+# Only transform test data
+X_test_processed = preprocessor.transform(X_test)
+
+print("Original training shape:", X_train.shape)
+print("Original testing shape:", X_test.shape)
+
+print("Processed training shape:", X_train_processed.shape)
+print("Processed testing shape:", X_test_processed.shape)
+
 # %%
 
 
