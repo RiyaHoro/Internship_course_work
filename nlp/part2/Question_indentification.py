@@ -55,12 +55,15 @@ def get_vectorizers(X_train_text, X_test_text):
 def train_and_evaluate(df, text_col='sentence', label_col='label'):
     df['clean_text'] = df[text_col].apply(clean_text)
     
+    # Check if dataset is too small for stratified splitting
+    use_stratify = df[label_col].value_counts().min() >= 2 if len(df) >= 10 else None
+
     X_train_text, X_test_text, y_train, y_test = train_test_split(
         df['clean_text'], 
         df[label_col], 
         test_size=0.2, 
         random_state=42, 
-        stratify=df[label_col]
+        stratify=df[label_col] if use_stratify else None
     )
 
     vectorized_data = get_vectorizers(X_train_text, X_test_text)
@@ -110,7 +113,7 @@ def train_and_evaluate(df, text_col='sentence', label_col='label'):
     summary_df = pd.DataFrame(results).sort_values(by='AUC', ascending=False)
     print(summary_df.to_string(index=False))
 
-
 if __name__ == "__main__":
-    df_transcripts = pd.read_csv("transcript_data.csv")
+    # Replace 'C:/path/to/your/' with the actual folder location of your CSV file
+    df_transcripts = pd.read_csv(r"d:/Internship Course work/nlp/part2/transcripts_data.csv")
     train_and_evaluate(df_transcripts, text_col='sentence', label_col='label')
